@@ -57,13 +57,30 @@ export default function ExperienciasSection() {
             <p className="fade-up" style={{
               fontFamily: "Inter", fontSize: 15, color: "#6a6a5e", lineHeight: 1.7, transitionDelay: "0.15s",
             }}>
-              Más de 150 eventos realizados desde 2022. Cada encuentro es una oportunidad de negocio en un entorno de primer nivel.
+              Activos desde 2022, generando oportunidades de negocio en entornos de primer nivel por todo el territorio nacional.
             </p>
             <a href="#contacto" className="fade-up btn-gold" style={{ alignSelf: "flex-start", transitionDelay: "0.2s" }}>
               Ver Todos los Eventos
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
+        </div>
+
+        {/* Activity tags */}
+        <div className="fade-up" style={{
+          display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 40,
+          transitionDelay: "0.25s",
+        }}>
+          {["Golf", "Navegación en Baleares", "Esquí", "Rutas Automovilísticas", "Arte", "Moda", "Alta Joyería", "Gastronomía"].map(tag => (
+            <span key={tag} style={{
+              fontFamily: "Inter", fontSize: 10, fontWeight: 500,
+              letterSpacing: "0.18em", textTransform: "uppercase",
+              color: "rgba(200,146,14,0.7)",
+              border: "1px solid rgba(200,146,14,0.2)",
+              padding: "6px 14px",
+              background: "rgba(200,146,14,0.04)",
+            }}>{tag}</span>
+          ))}
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>

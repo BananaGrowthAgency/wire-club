@@ -114,13 +114,13 @@ export default function Hero() {
           willChange: "opacity, transform",
           animation: "hfu 0.65s ease 0.54s both",
         }}>
-          <a href="#contacto" className="btn-gold-fill" style={{ fontSize: 10, padding: "12px 26px" }}>
-            Únete al Club
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <a href="#contacto" className="btn-gold-fill" style={{ fontSize: 12, padding: "12px 26px", WebkitTextStroke: "0.4px #000" }}>
+            Quiero ser parte de WCS
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ filter: "drop-shadow(0 0 0.4px #000) drop-shadow(0 0 0.4px #000)" }}>
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
-          <a href="#el-club" className="btn-gold" style={{ fontSize: 10, padding: "12px 26px" }}>
+          <a href="#el-club" className="btn-gold" style={{ fontSize: 12, padding: "12px 26px", WebkitTextStroke: "0.4px #000" }}>
             Conoce más
           </a>
         </div>
@@ -141,8 +141,8 @@ export default function Hero() {
           display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
         }}>
           {[
-            { n: "9",        l: "Delegaciones en España" },
-            { n: "150+",     l: "Eventos realizados"     },
+            { n: "12",       l: "Delegaciones activas" },
+            { n: "2022",     l: "Año de fundación"        },
             { n: "Nacional", l: "Red de contactos"       },
           ].map((s, i) => (
             <div key={s.l} style={{

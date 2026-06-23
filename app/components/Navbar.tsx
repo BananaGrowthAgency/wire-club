@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Menu, X, Search, UserCircle } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import React from "react";
 
 const links = [
   { label: "Quiénes Somos", href: "#el-club" },
@@ -12,9 +12,25 @@ const links = [
 
 const GOLD = "#E8B822";
 
+const delegaciones = [
+  "Zaragoza", "Madrid", "Barcelona", "Valencia",
+  "Mallorca", "Tenerife", "Málaga · Costa del Sol", "Alicante", "Logroño",
+  "Murcia", "Andorra", "Oporto",
+];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [dropOpen, setDropOpen] = useState(false);
+  const dropTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openDrop = () => {
+    if (dropTimer.current) clearTimeout(dropTimer.current);
+    setDropOpen(true);
+  };
+  const closeDrop = () => {
+    dropTimer.current = setTimeout(() => setDropOpen(false), 120);
+  };
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 60);
@@ -39,7 +55,6 @@ export default function Navbar() {
         margin: "0 auto",
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
         willChange: "background, border-radius, box-shadow, padding",
         transition: "background 0.45s ease, border-radius 0.45s ease, box-shadow 0.45s ease, padding 0.45s ease, border-color 0.45s ease",
         background: scrolled ? "rgba(8,6,4,0.82)" : "transparent",
@@ -89,26 +104,62 @@ export default function Navbar() {
         </a>
 
         {/* Desktop Nav */}
-        <nav style={{ display: "flex", gap: 32, alignItems: "center" }} className="hidden md:flex">
-          {links.map((l) => (
+        <nav className="nav-desktop" style={{ gap: 32, alignItems: "center", marginLeft: "auto", marginRight: 120 }}>
+          {links.map((l) => l.dropdown ? (
+            <div key={l.href} style={{ position: "relative" }}
+              onMouseEnter={openDrop}
+              onMouseLeave={closeDrop}
+            >
+              <a href={l.href} style={{
+                fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 500,
+                letterSpacing: "0.18em", textTransform: "uppercase",
+                color: dropOpen ? GOLD : "#9a9a8a",
+                textDecoration: "none", transition: "color 0.25s ease",
+                display: "flex", alignItems: "center", gap: 4,
+              }}>
+                {l.label}
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                  style={{ transition: "transform 0.25s", transform: dropOpen ? "rotate(180deg)" : "rotate(0deg)" }}>
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </a>
+              {dropOpen && (
+                <div onMouseEnter={openDrop} onMouseLeave={closeDrop} style={{
+                  position: "absolute", top: "calc(100% + 16px)", left: "50%", transform: "translateX(-50%)",
+                  background: "rgba(8,6,4,0.96)", backdropFilter: "blur(20px)",
+                  border: "1px solid rgba(200,146,14,0.25)", borderRadius: 8,
+                  padding: "8px 0", minWidth: 200, zIndex: 200,
+                  boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
+                }}>
+                  {/* Top gold line */}
+                  <div style={{ position: "absolute", top: 0, left: 16, right: 16, height: 1, background: "linear-gradient(to right, transparent, #C8920E, transparent)" }} />
+                  {delegaciones.map(ciudad => (
+                    <a key={ciudad} href="#delegaciones"
+                      style={{
+                        display: "block", padding: "10px 20px",
+                        fontFamily: "Inter, sans-serif", fontSize: 11,
+                        letterSpacing: "0.12em", textTransform: "uppercase",
+                        color: "#9a9a8a", textDecoration: "none",
+                        transition: "color 0.2s, background 0.2s",
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.color = GOLD; e.currentTarget.style.background = "rgba(200,146,14,0.06)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.color = "#9a9a8a"; e.currentTarget.style.background = "transparent"; }}
+                    >{ciudad}</a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
             <a key={l.href} href={l.href} style={{
               fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 500,
               letterSpacing: "0.18em", textTransform: "uppercase",
-              color: "#9a9a8a",
-              textDecoration: "none",
+              color: "#9a9a8a", textDecoration: "none",
               transition: "color 0.25s ease",
               display: "flex", alignItems: "center", gap: 4,
             }}
             onMouseEnter={e => (e.currentTarget.style.color = GOLD)}
             onMouseLeave={e => (e.currentTarget.style.color = "#9a9a8a")}
-            >
-              {l.label}
-              {l.dropdown && (
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M6 9l6 6 6-6"/>
-                </svg>
-              )}
-            </a>
+            >{l.label}</a>
           ))}
           <a href="#socios" style={{
             fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 500,
@@ -123,26 +174,18 @@ export default function Navbar() {
           </a>
         </nav>
 
-        {/* Right actions */}
-        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <Search size={17} style={{ color: "#9a9a8a", cursor: "pointer", transition: "color 0.25s ease" }}
-            onMouseEnter={e => ((e.currentTarget as SVGElement).style.color = GOLD)}
-            onMouseLeave={e => ((e.currentTarget as SVGElement).style.color = "#9a9a8a")}
-          />
-          <UserCircle size={17} style={{ color: "#9a9a8a", cursor: "pointer", transition: "color 0.25s ease" }}
-            onMouseEnter={e => ((e.currentTarget as SVGElement).style.color = GOLD)}
-            onMouseLeave={e => ((e.currentTarget as SVGElement).style.color = "#9a9a8a")}
-          />
-          <button
-
-            onClick={() => setOpen(!open)}
-            className="md:hidden block"
-            style={{ background: "none", border: "none", color: "#9a9a8a", cursor: "pointer" }}
-            aria-label="Menu"
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
+        {/* Hamburger — mobile only */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="nav-hamburger"
+          style={{ background: "none", border: "none", color: "#9a9a8a", cursor: "pointer", padding: 4 }}
+          aria-label="Menu"
+        >
+          {open
+            ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          }
+        </button>
       </div>
 
       {/* Mobile menu */}
@@ -153,18 +196,18 @@ export default function Navbar() {
           borderTop: "1px solid rgba(212,160,23,0.12)",
           padding: "20px 40px",
         }}>
-          {links.map(l => (
+          {[...links, { label: "Área de Socios", href: "#socios" }].map((l, i, arr) => (
             <a key={l.href} href={l.href} onClick={() => setOpen(false)}
               style={{
-                display: "block", padding: "12px 0",
-                fontFamily: "Inter, sans-serif", fontSize: 12,
-                letterSpacing: "0.2em", textTransform: "uppercase",
-                color: "#9a9a8a", textDecoration: "none",
-                borderBottom: "1px solid rgba(255,255,255,0.05)",
+                display: "block", padding: "14px 0",
+                fontFamily: "Inter, sans-serif", fontSize: 13,
+                letterSpacing: "0.18em", textTransform: "uppercase",
+                color: "#c8c4bb", textDecoration: "none",
+                borderBottom: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
                 transition: "color 0.25s ease",
               }}
               onMouseEnter={e => (e.currentTarget.style.color = GOLD)}
-              onMouseLeave={e => (e.currentTarget.style.color = "#9a9a8a")}
+              onMouseLeave={e => (e.currentTarget.style.color = "#c8c4bb")}
             >{l.label}</a>
           ))}
         </div>
@@ -175,6 +218,14 @@ export default function Navbar() {
           0%   { background-position: 150% center; }
           35%  { background-position: -150% center; }
           100% { background-position: -150% center; }
+        }
+        .nav-hamburger { display: none; }
+        .nav-desktop { display: none; }
+        @media (max-width: 767px) {
+          .nav-hamburger { display: block; }
+        }
+        @media (min-width: 768px) {
+          .nav-desktop { display: flex; }
         }
       `}</style>
     </header>

@@ -15,7 +15,7 @@ const features = [
   {
     img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80&fit=crop",
     title: "Comunidad Activa",
-    desc: "Más de 150 eventos realizados en 9 ciudades de España.",
+    desc: "Comunidad en constante crecimiento con presencia en 12 delegaciones.",
   },
   {
     img: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&q=80&fit=crop",

@@ -65,26 +65,30 @@ export default function ContactSection() {
           transitionDelay: "0.25s",
         }}>
           {[
-            { label: "Llamar", val: "609 178 116", href: "tel:609178116" },
-            { label: "Email", val: "zaragoza@wireclubspain.es", href: "mailto:zaragoza@wireclubspain.es" },
-            { label: "Instagram", val: "@wireclubbusinessspain", href: "https://instagram.com/wireclubbusinessspain" },
+            { label: "Llamar", val: "609 178 116", href: "tel:609178116", icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C8920E" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> },
+            { label: "Email", val: "zaragoza@wireclubspain.es", href: "mailto:zaragoza@wireclubspain.es", icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C8920E" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> },
+            { label: "Instagram", val: "@wireclubbusinessspain", href: "https://instagram.com/wireclubbusinessspain", icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C8920E" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> },
           ].map(c => (
             <a key={c.label} href={c.href}
               style={{
-                border: "1px solid rgba(212,160,23,0.18)", padding: "24px 20px",
-                textDecoration: "none", display: "block", transition: "border-color 0.3s, background 0.3s",
+                border: "1px solid rgba(212,160,23,0.18)",
+                borderTop: "2px solid #C8920E",
+                padding: "28px 20px",
+                textDecoration: "none", display: "block",
+                textAlign: "center",
+                transition: "border-color 0.3s, background 0.3s",
+                background: "rgba(200,146,14,0.03)",
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.borderColor = "rgba(212,160,23,0.5)";
-                e.currentTarget.style.background = "rgba(212,160,23,0.05)";
+                e.currentTarget.style.background = "rgba(212,160,23,0.07)";
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.borderColor = "rgba(212,160,23,0.18)";
-                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.background = "rgba(200,146,14,0.03)";
               }}
             >
-              <div style={{ fontFamily: "Inter", fontSize: 9, letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--gold-4)", marginBottom: 8 }}>{c.label}</div>
-              <div style={{ fontFamily: "Inter", fontSize: 13, color: "#9a9a8a" }}>{c.val}</div>
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>{c.icon}</div>
+              <div style={{ fontFamily: "Inter", fontSize: 9, letterSpacing: "0.3em", textTransform: "uppercase", color: "#C8920E", marginBottom: 10 }}>{c.label}</div>
+              <div style={{ fontFamily: "Georgia, serif", fontSize: c.label === "Email" ? 11 : 14, fontWeight: 700, color: "#d4cfc6" }}>{c.val}</div>
             </a>
           ))}
         </div>
