@@ -6,7 +6,7 @@ const GOLD = "#E8B822";
 const stats = [
   { n: "12",    l: "Delegaciones activas",  raw: 12,   prefix: "",  decimals: 0 },
   { n: "+200",  l: "Eventos realizados",    raw: 200,  prefix: "+", decimals: 0 },
-  { n: "+2.200", l: "Empleados directos",   raw: 2200, prefix: "+", decimals: 0 },
+  { n: "+3.000", l: "Miembros",             raw: 3000, prefix: "+", decimals: 0 },
 ];
 
 function formatNum(val: number, prefix: string): string {
