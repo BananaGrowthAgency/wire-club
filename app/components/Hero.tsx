@@ -21,6 +21,11 @@ export default function Hero() {
   const numRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    // Inicializar todos los números en "0" hasta que entren en pantalla
+    numRefs.current.forEach((el, i) => {
+      if (el) el.textContent = stats[i].prefix + "0";
+    });
+
     const duration = 1800;
     const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
@@ -35,18 +40,37 @@ export default function Hero() {
       requestAnimationFrame(tick);
     };
 
+    const triggered = new Set<HTMLDivElement>();
+
+    const fire = (el: HTMLDivElement, idx: number) => {
+      if (triggered.has(el)) return;
+      triggered.add(el);
+      setTimeout(() => animate(el, stats[idx]), idx * 150);
+    };
+
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         const idx = numRefs.current.indexOf(entry.target as HTMLDivElement);
         if (idx !== -1) {
-          setTimeout(() => animate(entry.target as HTMLDivElement, stats[idx]), idx * 120);
+          fire(entry.target as HTMLDivElement, idx);
           obs.unobserve(entry.target);
         }
       });
     }, { threshold: 0.5 });
 
-    numRefs.current.forEach(el => { if (el) obs.observe(el); });
+    numRefs.current.forEach((el, idx) => {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (inView) {
+        // Ya visible al cargar: animar con pequeño delay para que el usuario lo vea
+        fire(el, idx);
+      } else {
+        obs.observe(el);
+      }
+    });
+
     return () => obs.disconnect();
   }, []);
 
