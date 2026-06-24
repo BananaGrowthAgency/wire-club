@@ -28,22 +28,30 @@ export default function DelegacionesSection() {
   }, []);
 
   return (
-    <section id="delegaciones" ref={ref} style={{
-      background: "#111110", padding: "120px 40px",
+    <section id="delegaciones" ref={ref} className="wcs-del-section" style={{
+      background: "#111110", padding: "80px clamp(20px,5vw,40px)",
       borderTop: "1px solid rgba(212,160,23,0.1)",
     }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "480px 1fr", gap: 60, alignItems: "start" }}>
-        
+      <style>{`
+        @media (max-width: 767px) {
+          .wcs-del-section { padding: 72px 20px !important; }
+          .wcs-del-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .wcs-del-sticky { position: static !important; top: auto !important; }
+          .wcs-del-cities { grid-template-columns: repeat(2, 1fr) !important; gap: 4px !important; }
+        }
+      `}</style>
+      <div className="wcs-del-grid" style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "480px 1fr", gap: 60, alignItems: "start" }}>
+
         {/* Left */}
-        <div style={{ position: "sticky", top: 120 }}>
+        <div className="wcs-del-sticky" style={{ position: "sticky", top: 120 }}>
           <div className="fade-up" style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
             <div className="divider-gold" />
             <span style={{ fontFamily: "Inter", fontSize: 10, fontWeight: 500, letterSpacing: "0.4em", textTransform: "uppercase", color: "var(--gold-4)" }}>
               Presencia Nacional
             </span>
           </div>
-          <h2 className="fade-up font-display" style={{
-            fontSize: "clamp(36px, 3.5vw, 50px)", fontWeight: 800,
+          <h2 className="fade-up font-display wcs-section-h2" style={{
+            fontSize: "clamp(28px, 7.5vw, 50px)", fontWeight: 800,
             color: "#f0ede6", lineHeight: 1.1, marginBottom: 24,
             transitionDelay: "0.1s",
           }}>
@@ -78,7 +86,7 @@ export default function DelegacionesSection() {
         </div>
 
         {/* Right — city cards */}
-        <div className="fade-up" style={{
+        <div className="fade-up wcs-del-cities" style={{
           display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
           gap: 3, transitionDelay: "0.2s",
         }}>

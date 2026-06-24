@@ -36,17 +36,28 @@ export default function EventosSection() {
   }, []);
 
   return (
-    <section id="eventos" ref={ref} style={{ background: "#0a0a0a", padding: "120px 40px", borderTop: "1px solid rgba(212,160,23,0.1)" }}>
+    <section id="eventos" ref={ref} className="wcs-eventos-section" style={{ background: "#0a0a0a", padding: "80px clamp(20px,5vw,40px)", borderTop: "1px solid rgba(212,160,23,0.1)" }}>
+      <style>{`
+        @media (max-width: 767px) {
+          .wcs-eventos-section { padding: 72px 20px !important; }
+          .wcs-eventos-header { grid-template-columns: 1fr !important; gap: 16px !important; margin-bottom: 36px !important; }
+          .wcs-event-card { grid-template-columns: 1fr !important; }
+          .wcs-event-card-sep { display: none !important; }
+          .wcs-event-img-wrap { height: 200px !important; width: 100% !important; }
+          .wcs-event-text { padding: 20px 16px !important; flex-direction: column !important; gap: 12px !important; align-items: flex-start !important; }
+          .wcs-event-num { font-size: 34px !important; }
+        }
+      `}</style>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
 
         {/* Header */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, marginBottom: 64, alignItems: "flex-end" }}>
+        <div className="wcs-eventos-header" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, marginBottom: 64, alignItems: "flex-end" }}>
           <div>
             <div className="fade-up" style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
               <div className="divider-gold" />
               <span style={{ fontFamily: "Inter", fontSize: 10, fontWeight: 500, letterSpacing: "0.4em", textTransform: "uppercase", color: "var(--gold-4)" }}>Agenda</span>
             </div>
-            <h2 className="fade-up font-display" style={{ fontSize: "clamp(38px, 4vw, 56px)", fontWeight: 800, color: "#f0ede6", lineHeight: 1.1, transitionDelay: "0.1s" }}>
+            <h2 className="fade-up font-display wcs-section-h2" style={{ fontSize: "clamp(28px, 7.5vw, 56px)", fontWeight: 800, color: "#f0ede6", lineHeight: 1.1, transitionDelay: "0.1s" }}>
               LA AGENDA<br />
               <span className="gold-gradient-text" style={{ fontStyle: "italic", fontWeight: 700 }}>QUE IMPORTA</span>
             </h2>
@@ -60,7 +71,7 @@ export default function EventosSection() {
         <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
           {eventos.map((ev, i) => (
             <div key={ev.num}
-              className="fade-up"
+              className="fade-up wcs-event-card"
               style={{
                 display: "grid", gridTemplateColumns: "200px 3px 1fr",
                 border: "1px solid rgba(200,146,14,0.12)",
@@ -82,18 +93,18 @@ export default function EventosSection() {
               }}
             >
               {/* Imagen */}
-              <div style={{ overflow: "hidden", height: 150 }}>
+              <div className="wcs-event-img-wrap" style={{ overflow: "hidden", height: 150 }}>
                 <img src={ev.img} alt={ev.tipo}
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.6s ease" }}
                 />
               </div>
 
               {/* Separador dorado */}
-              <div style={{ background: "linear-gradient(to bottom, transparent, #C8920E 30%, #C8920E 70%, transparent)" }} />
+              <div className="wcs-event-card-sep" style={{ background: "linear-gradient(to bottom, transparent, #C8920E 30%, #C8920E 70%, transparent)" }} />
 
               {/* Texto */}
-              <div style={{ padding: "28px 40px", display: "flex", alignItems: "center", gap: 40 }}>
-                <span className="font-display" style={{ fontSize: 48, fontWeight: 700, color: "rgba(200,146,14,0.12)", lineHeight: 1, flexShrink: 0 }}>{ev.num}</span>
+              <div className="wcs-event-text" style={{ padding: "28px 40px", display: "flex", alignItems: "center", gap: 40 }}>
+
                 <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
                     <span style={{

@@ -13,11 +13,17 @@ export default function ContactSection() {
   }, []);
 
   return (
-    <section id="contacto" ref={ref} style={{
-      background: "#0a0a0a", padding: "140px 40px",
+    <section id="contacto" ref={ref} className="wcs-contact-section" style={{
+      background: "#0a0a0a", padding: "80px clamp(20px,5vw,40px)",
       position: "relative", overflow: "hidden",
       borderTop: "1px solid rgba(212,160,23,0.1)",
     }}>
+      <style>{`
+        @media (max-width: 767px) {
+          .wcs-contact-section { padding: 72px 20px !important; }
+          .wcs-contact-cards { grid-template-columns: 1fr !important; gap: 10px !important; margin-bottom: 36px !important; }
+        }
+      `}</style>
       {/* BG glow */}
       <div style={{
         position: "absolute", top: "50%", left: "50%",
@@ -36,15 +42,15 @@ export default function ContactSection() {
           <div className="divider-gold" />
         </div>
 
-        <h2 className="fade-up font-display" style={{
-          fontSize: "clamp(44px, 6vw, 80px)", fontWeight: 800,
+        <h2 className="fade-up font-display wcs-section-h2" style={{
+          fontSize: "clamp(22px, 5.2vw, 80px)", fontWeight: 800,
           color: "#f0ede6", lineHeight: 1.05, marginBottom: 12,
           transitionDelay: "0.1s",
         }}>
           ¿LISTO PARA EL
         </h2>
-        <h2 className="fade-up font-display gold-gradient-text" style={{
-          fontSize: "clamp(44px, 6vw, 80px)", fontWeight: 700,
+        <h2 className="fade-up font-display gold-gradient-text wcs-section-h2" style={{
+          fontSize: "clamp(22px, 5.2vw, 80px)", fontWeight: 700,
           lineHeight: 1.05, fontStyle: "italic", marginBottom: 40,
           transitionDelay: "0.15s",
         }}>
@@ -60,7 +66,7 @@ export default function ContactSection() {
         </p>
 
         {/* Contact cards */}
-        <div className="fade-up" style={{
+        <div className="fade-up wcs-contact-cards" style={{
           display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 52,
           transitionDelay: "0.25s",
         }}>

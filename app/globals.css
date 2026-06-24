@@ -245,3 +245,83 @@ body {
   }
   .fade-up { opacity: 1; transform: none; }
 }
+
+@media (max-width: 767px) {
+  .fade-up {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: none !important;
+  }
+
+  /* Evitar desbordamiento horizontal en toda la página */
+  section, footer, header {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Reducir todos los h2 de sección para que no desborden */
+  .wcs-section-h2 {
+    font-size: clamp(26px, 7vw, 40px) !important;
+    line-height: 1.12 !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────
+   RESPONSIVE — MOBILE  (≤ 767px)
+───────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+
+  /* ── Hero ── */
+  .wcs-hero-h1  { font-size: clamp(28px, 7.5vw, 42px) !important; }
+  .wcs-hero-sub { font-size: 14px !important; }
+  .wcs-hero-stats { padding: 0 10px !important; }
+  .wcs-hero-stat-item { padding: 12px 4px !important; }
+  .wcs-hero-stat-num  { font-size: 22px !important; }
+  .wcs-hero-stat-lbl  { font-size: 7px !important; letter-spacing: 0.16em !important; }
+
+  /* ── FeaturesBar ── */
+  .wcs-features-section { padding: 60px 20px 0 !important; }
+  .wcs-features-grid    { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* ── AboutSection ── */
+  .wcs-about-section { padding: 60px 20px 80px !important; }
+  .wcs-about-grid    { grid-template-columns: 1fr !important; gap: 48px !important; }
+  .wcs-about-img-col { min-height: 280px !important; }
+  .wcs-about-float   { width: 48% !important; height: 170px !important; bottom: -16px !important; }
+  .wcs-about-main-img { width: 68% !important; height: 280px !important; }
+
+  /* ── EventosSection ── */
+  .wcs-eventos-section { padding: 80px 20px !important; }
+  .wcs-eventos-header  { grid-template-columns: 1fr !important; gap: 20px !important; margin-bottom: 40px !important; }
+  .wcs-event-card      { grid-template-columns: 1fr !important; }
+  .wcs-event-card-sep  { display: none !important; }
+  .wcs-event-img-wrap  { height: 180px !important; width: 100% !important; }
+  .wcs-event-text      { padding: 20px !important; flex-direction: column !important; gap: 12px !important; align-items: flex-start !important; }
+  .wcs-event-num       { font-size: 36px !important; }
+
+  /* ── ExperienciasSection ── */
+  .wcs-exp-section { padding: 80px 20px !important; }
+  .wcs-exp-header  { grid-template-columns: 1fr !important; gap: 24px !important; margin-bottom: 40px !important; }
+  .wcs-exp-cards   { grid-template-columns: 1fr !important; }
+  .wcs-exp-tags    { gap: 8px !important; margin-bottom: 28px !important; }
+
+  /* ── DelegacionesSection ── */
+  .wcs-del-section { padding: 80px 20px !important; }
+  .wcs-del-grid    { grid-template-columns: 1fr !important; gap: 48px !important; }
+  .wcs-del-sticky  { position: static !important; top: auto !important; }
+  .wcs-del-cities  { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* ── PatrocinadoresSection ── */
+  .wcs-pat-section { padding: 48px 20px !important; }
+  .wcs-pat-logos   { gap: 36px !important; flex-direction: column !important; align-items: center !important; }
+  .wcs-pat-sep     { display: none !important; }
+
+  /* ── ContactSection ── */
+  .wcs-contact-section { padding: 80px 20px !important; }
+  .wcs-contact-cards   { grid-template-columns: 1fr !important; gap: 12px !important; }
+
+  /* ── Footer ── */
+  .wcs-footer-grid   { grid-template-columns: 1fr !important; gap: 36px !important; padding: 56px 20px 40px !important; }
+  .wcs-footer-bottom { grid-template-columns: 1fr !important; gap: 14px !important; text-align: center !important; justify-items: center !important; }
+  .wcs-footer-bottom-links { justify-content: center !important; }
+}

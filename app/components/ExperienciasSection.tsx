@@ -34,10 +34,18 @@ export default function ExperienciasSection() {
   }, []);
 
   return (
-    <section id="experiencias" ref={ref} style={{ background: "#0d0d0c", padding: "120px 40px" }}>
+    <section id="experiencias" ref={ref} className="wcs-exp-section" style={{ background: "#0d0d0c", padding: "80px clamp(20px,5vw,40px)" }}>
+      <style>{`
+        @media (max-width: 767px) {
+          .wcs-exp-section { padding: 72px 20px !important; }
+          .wcs-exp-header { grid-template-columns: 1fr !important; gap: 20px !important; margin-bottom: 32px !important; }
+          .wcs-exp-cards { grid-template-columns: 1fr !important; gap: 16px !important; }
+          .wcs-exp-tags { gap: 8px !important; margin-bottom: 24px !important; }
+        }
+      `}</style>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, marginBottom: 60, alignItems: "flex-end" }}>
+
+        <div className="wcs-exp-header" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, marginBottom: 60, alignItems: "flex-end" }}>
           <div>
             <div className="fade-up" style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
               <div className="divider-gold" />
@@ -45,8 +53,8 @@ export default function ExperienciasSection() {
                 Lo que Ofrecemos
               </span>
             </div>
-            <h2 className="fade-up font-display" style={{
-              fontSize: "clamp(40px, 4.5vw, 64px)", fontWeight: 800,
+            <h2 className="fade-up font-display wcs-section-h2" style={{
+              fontSize: "clamp(22px, 3.8vw, 44px)", fontWeight: 800,
               color: "#f0ede6", lineHeight: 1.05, transitionDelay: "0.1s",
             }}>
               NEGOCIO Y OCIO<br />
@@ -67,7 +75,7 @@ export default function ExperienciasSection() {
         </div>
 
         {/* Activity tags */}
-        <div className="fade-up" style={{
+        <div className="fade-up wcs-exp-tags" style={{
           display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 40,
           transitionDelay: "0.25s",
         }}>
@@ -83,7 +91,7 @@ export default function ExperienciasSection() {
           ))}
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+        <div className="wcs-exp-cards" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
           {cards.map((c, i) => (
             <div
               key={c.title}
@@ -110,12 +118,13 @@ export default function ExperienciasSection() {
               <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "28px 28px" }}>
                 <div style={{
                   display: "inline-block", padding: "4px 10px",
-                  border: "1px solid rgba(212,160,23,0.55)",
-                  fontFamily: "Inter", fontSize: 9, fontWeight: 500,
-                  letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold-4)", marginBottom: 10,
+                  background: "rgba(0,0,0,0.82)",
+                  border: "1px solid rgba(212,160,23,0.4)",
+                  fontFamily: "Inter", fontSize: 9, fontWeight: 600,
+                  letterSpacing: "0.2em", textTransform: "uppercase", color: "#ffffff", marginBottom: 10,
                 }}>{c.tag}</div>
                 <h3 className="font-display" style={{ fontSize: 22, fontWeight: 700, color: "#f0ede6", marginBottom: 8 }}>{c.title}</h3>
-                <p style={{ fontFamily: "Inter", fontSize: 13, color: "#9a9a8a", lineHeight: 1.5 }}>{c.desc}</p>
+                <p style={{ fontFamily: "Inter", fontSize: 13, color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>{c.desc}</p>
               </div>
             </div>
           ))}

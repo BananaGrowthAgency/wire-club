@@ -6,6 +6,7 @@ export default function Hero() {
   return (
     <section
       id="inicio"
+      className="wcs-hero-section"
       style={{
         position: "relative",
         width: "100%",
@@ -36,7 +37,7 @@ export default function Hero() {
       }} />
 
       {/* Content */}
-      <div style={{
+      <div className="wcs-hero-content" style={{
         position: "relative", zIndex: 2,
         textAlign: "center",
         padding: "0 32px 64px",
@@ -67,7 +68,7 @@ export default function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="font-display" style={{
+        <h1 className="font-display wcs-hero-h1" style={{
           fontSize: "clamp(22px, 2.6vw, 42px)",
           fontWeight: 800,
           lineHeight: 1.18,
@@ -96,7 +97,7 @@ export default function Hero() {
         }} />
 
         {/* Subtitle */}
-        <p style={{
+        <p className="wcs-hero-sub" style={{
           fontFamily: "Inter, sans-serif",
           fontSize: "clamp(12px, 1.1vw, 14px)",
           fontWeight: 300, lineHeight: 1.8,
@@ -127,7 +128,7 @@ export default function Hero() {
       </div>
 
       {/* Stats strip — barra glassmorphism ancho completo */}
-      <div style={{
+      <div className="wcs-hero-stats-outer" style={{
         position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 3,
         background: "rgba(6,5,4,0.7)",
         backdropFilter: "blur(24px)",
@@ -136,7 +137,7 @@ export default function Hero() {
         willChange: "opacity, transform",
         animation: "hfu 0.65s ease 0.66s both",
       }}>
-        <div style={{
+        <div className="wcs-hero-stats" style={{
           maxWidth: 860, margin: "0 auto", padding: "0 40px",
           display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
         }}>
@@ -145,11 +146,11 @@ export default function Hero() {
             { n: "2022",     l: "Año de fundación"        },
             { n: "Nacional", l: "Red de contactos"       },
           ].map((s, i) => (
-            <div key={s.l} style={{
+            <div key={s.l} className="wcs-hero-stat-item" style={{
               textAlign: "center", padding: "20px 0",
               borderRight: i < 2 ? "1px solid rgba(200,146,14,0.1)" : "none",
             }}>
-              <div className="font-display" style={{
+              <div className="font-display wcs-hero-stat-num" style={{
                 fontSize: 32, fontWeight: 700, lineHeight: 1,
                 background: "linear-gradient(180deg, #FFF3A3 0%, #E8B822 55%, #C8920E 100%)",
                 WebkitBackgroundClip: "text",
@@ -157,7 +158,7 @@ export default function Hero() {
                 backgroundClip: "text",
               }}>{s.n}</div>
               <div style={{ width: 24, height: 1, background: "rgba(200,146,14,0.4)", margin: "8px auto" }} />
-              <div style={{
+              <div className="wcs-hero-stat-lbl" style={{
                 fontFamily: "Inter, sans-serif", fontSize: 9,
                 letterSpacing: "0.24em", textTransform: "uppercase", color: "#5a5a50",
               }}>{s.l}</div>
@@ -175,6 +176,44 @@ export default function Hero() {
         @keyframes hBounce {
           0%, 100% { transform: translateX(-50%) translateY(0); }
           50%       { transform: translateX(-50%) translateY(6px); }
+        }
+        @media (max-width: 767px) {
+          /* Sección: flujo vertical, altura mínima, sin overflow oculto */
+          .wcs-hero-section {
+            height: auto !important;
+            min-height: 100svh !important;
+            justify-content: flex-start !important;
+            overflow: visible !important;
+          }
+          /* Stats strip: sale del absolute, se pega al final del flujo */
+          .wcs-hero-stats-outer {
+            position: static !important;
+            width: 100% !important;
+            margin-top: auto;
+          }
+          /* Contenido: espacio para la navbar arriba, padding normal abajo */
+          .wcs-hero-content {
+            padding: 96px 24px 36px !important;
+            justify-content: flex-start !important;
+          }
+          /* Headline */
+          .wcs-hero-h1 {
+            font-size: 20px !important;
+            line-height: 1.3 !important;
+            margin-bottom: 12px !important;
+          }
+          /* Subtítulo */
+          .wcs-hero-sub {
+            font-size: 13px !important;
+            line-height: 1.7 !important;
+            max-width: 100% !important;
+            margin-bottom: 28px !important;
+          }
+          /* Stats grid: más compacto */
+          .wcs-hero-stats      { padding: 0 12px !important; }
+          .wcs-hero-stat-item  { padding: 14px 4px !important; }
+          .wcs-hero-stat-num   { font-size: 22px !important; }
+          .wcs-hero-stat-lbl   { font-size: 7.5px !important; letter-spacing: 0.15em !important; }
         }
       `}</style>
     </section>

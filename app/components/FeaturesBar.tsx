@@ -26,11 +26,17 @@ const features = [
 
 export default function FeaturesBar() {
   return (
-    <section style={{ background: "#060504", padding: "80px 40px 0" }}>
-      <div style={{
+    <section className="wcs-features-section" style={{ background: "#060504", padding: "80px clamp(20px,5vw,40px) 0" }}>
+      <div className="wcs-features-grid" style={{
         maxWidth: 1280, margin: "0 auto",
         display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16,
       }}>
+      <style>{`
+        @media (max-width: 767px) {
+          .wcs-features-section { padding: 56px 20px 0 !important; }
+          .wcs-features-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+        }
+      `}</style>
         {features.map((f) => (
           <div
             key={f.title}

@@ -29,7 +29,14 @@ export default function Footer() {
 
   return (
     <footer style={{ background: "#080706", borderTop: "1px solid rgba(201,168,76,0.12)" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "72px 40px 48px", display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1.2fr", gap: 60 }}>
+      <style>{`
+        @media (max-width: 767px) {
+          .wcs-footer-grid { grid-template-columns: 1fr !important; gap: 36px !important; padding: 52px 20px 36px !important; }
+          .wcs-footer-bottom { grid-template-columns: 1fr !important; gap: 12px !important; text-align: center !important; padding: 16px 20px !important; }
+          .wcs-footer-bottom-links { justify-content: center !important; }
+        }
+      `}</style>
+      <div className="wcs-footer-grid" style={{ maxWidth: 1280, margin: "0 auto", padding: "72px 40px 48px", display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1.2fr", gap: 60 }}>
 
         {/* Col 1 — Logo + descripción + social */}
         <div>
@@ -123,7 +130,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div style={{ padding: "20px 40px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center" }}>
+        <div className="wcs-footer-bottom" style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center" }}>
           <span style={{ fontFamily: "Inter", fontSize: 12, color: TEXT_DIM, letterSpacing: "0.06em" }}>
             © {new Date().getFullYear()} Wire Business Club Spain. Todos los derechos reservados.
           </span>
@@ -135,7 +142,7 @@ export default function Footer() {
             <img src="/logoBGA.png" alt="Banana Growth Agency" style={{ height: 30, width: "auto", objectFit: "contain", mixBlendMode: "screen" }} />
           </a>
 
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: 24 }}>
+          <div className="wcs-footer-bottom-links" style={{ display: "flex", justifyContent: "flex-end", gap: 24 }}>
             {["Política de Privacidad", "Cookies"].map(t => (
               <a key={t} href="#" style={{ fontFamily: "Inter", fontSize: 12, color: TEXT_DIM, textDecoration: "none", transition: "color 0.2s" }}
                 onMouseEnter={gold}

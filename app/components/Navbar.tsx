@@ -41,16 +41,17 @@ export default function Navbar() {
 
   return (
     <header
+      className="nav-header"
       style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         willChange: "background, border-color, padding",
         transition: "background 0.45s ease, border-color 0.45s ease, padding 0.45s ease",
         background: scrolled ? "transparent" : "rgba(6,5,4,0.96)",
         borderBottom: scrolled ? "none" : "1px solid rgba(200,146,14,0.12)",
-        padding: scrolled ? "12px 24px" : "0",
+        padding: scrolled ? "16px 16px 8px" : "0",
       }}
     >
-      <div style={{
+      <div className="nav-inner" style={{
         maxWidth: 1280,
         margin: "0 auto",
         display: "flex",
@@ -69,9 +70,9 @@ export default function Navbar() {
       }}>
 
         {/* Logo */}
-        <a href="#" style={{ textDecoration: "none", display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+        <a href="#" className="nav-logo" style={{ textDecoration: "none", display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
           <span
-            className="font-display"
+            className="font-display nav-logo-main"
             style={{
               fontSize: 20, fontWeight: 700, letterSpacing: "0.28em", lineHeight: 1,
               background: "linear-gradient(100deg, #6B3F00 0%, #A0680A 15%, #C8920E 28%, #F9D84A 40%, #FFFFFF 47%, #F9D84A 54%, #C8920E 68%, #A0680A 82%, #6B3F00 92%, #E8B822 100%)",
@@ -88,6 +89,7 @@ export default function Navbar() {
             }}
           >WIRE CLUB</span>
           <span
+            className="nav-logo-sub"
             style={{
               fontSize: 8, letterSpacing: "0.38em", fontFamily: "Inter, sans-serif", fontWeight: 500,
               background: "linear-gradient(100deg, #6B3F00 0%, #C8920E 25%, #F9D84A 45%, #FFFFFF 50%, #F9D84A 55%, #C8920E 75%, #6B3F00 100%)",
@@ -223,6 +225,16 @@ export default function Navbar() {
         .nav-desktop { display: none; }
         @media (max-width: 767px) {
           .nav-hamburger { display: block; }
+          /* Header: padding suficiente para que el pill no se recorte */
+          .nav-header { padding: 16px 16px 8px !important; }
+          /* Inner pill */
+          .nav-inner { padding: 8px 16px !important; }
+          /* Logo alineado a la izquierda, más pequeño */
+          .nav-logo { align-items: center !important; gap: 1px !important; }
+          .nav-logo-main { font-size: 12px !important; letter-spacing: 0.20em !important; padding-bottom: 2px !important; }
+          .nav-logo-sub  { letter-spacing: 0.01em !important; }
+          /* Hamburguesa pegada a la derecha */
+          .nav-hamburger { margin-left: auto !important; padding: 6px !important; }
         }
         @media (min-width: 768px) {
           .nav-desktop { display: flex; }

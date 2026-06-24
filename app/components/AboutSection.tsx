@@ -13,11 +13,20 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section id="el-club" ref={ref} style={{ background: "#0a0a0a", padding: "60px 40px 120px" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 100, alignItems: "center" }}>
-        
+    <section id="el-club" ref={ref} className="wcs-about-section" style={{ background: "#0a0a0a", padding: "60px clamp(20px,5vw,40px) 120px" }}>
+      <style>{`
+        @media (max-width: 767px) {
+          .wcs-about-section { padding: 56px 20px 72px !important; }
+          .wcs-about-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .wcs-about-img-col { min-height: 300px !important; }
+          .wcs-about-main-img { width: 75% !important; height: 300px !important; }
+          .wcs-about-float { width: 52% !important; height: 180px !important; bottom: -12px !important; }
+        }
+      `}</style>
+      <div className="wcs-about-grid" style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 100, alignItems: "center" }}>
+
         {/* LEFT — Image mosaic */}
-        <div className="fade-up" style={{ position: "relative", minHeight: 460 }}>
+        <div className="fade-up wcs-about-img-col" style={{ position: "relative", minHeight: 460 }}>
           {/* Gold vertical accent */}
           <div style={{ position: "absolute", top: "5%", left: -16, width: 2, height: "90%", background: "linear-gradient(to bottom, transparent, #C8920E 30%, #C8920E 70%, transparent)" }} />
 
@@ -25,11 +34,12 @@ export default function AboutSection() {
           <img
             src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=85&fit=crop"
             alt="Eventos empresariales Wire Club"
+            className="wcs-about-main-img"
             style={{ width: "72%", height: 420, objectFit: "cover", display: "block", borderRadius: 14 }}
           />
 
           {/* Floating card — glassmorphism */}
-          <div style={{
+          <div className="wcs-about-float" style={{
             position: "absolute",
             bottom: -20,
             right: 0,
@@ -64,15 +74,15 @@ export default function AboutSection() {
             </span>
           </div>
 
-          <h2 className="fade-up font-display" style={{
-            fontSize: "clamp(36px, 4vw, 56px)", fontWeight: 800,
+          <h2 className="fade-up font-display wcs-section-h2" style={{
+            fontSize: "clamp(24px, 3.8vw, 44px)", fontWeight: 800,
             color: "#f0ede6", lineHeight: 1.1, marginBottom: 8,
             transitionDelay: "0.15s",
           }}>
             UN CLUB DONDE EL
           </h2>
-          <h2 className="fade-up font-display gold-gradient-text" style={{
-            fontSize: "clamp(36px, 4vw, 56px)", fontWeight: 700,
+          <h2 className="fade-up font-display gold-gradient-text wcs-section-h2" style={{
+            fontSize: "clamp(24px, 3.8vw, 44px)", fontWeight: 700,
             lineHeight: 1.1, fontStyle: "italic", marginBottom: 32,
             transitionDelay: "0.2s",
           }}>
