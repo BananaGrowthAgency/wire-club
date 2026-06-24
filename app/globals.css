@@ -247,10 +247,10 @@ body {
 }
 
 @media (max-width: 767px) {
+  /* Animación más sutil en móvil */
   .fade-up {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    transition: none !important;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
   /* Evitar desbordamiento horizontal en toda la página */

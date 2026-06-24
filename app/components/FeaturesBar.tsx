@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useRef } from "react";
 
 const features = [
   {
@@ -25,8 +26,19 @@ const features = [
 ];
 
 export default function FeaturesBar() {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); }),
+      { threshold: 0.05, rootMargin: "0px 0px -30px 0px" }
+    );
+    ref.current?.querySelectorAll(".fade-up").forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
   return (
-    <section className="wcs-features-section" style={{ background: "#060504", padding: "80px clamp(20px,5vw,40px) 0" }}>
+    <section ref={ref} className="wcs-features-section" style={{ background: "#060504", padding: "80px clamp(20px,5vw,40px) 0" }}>
       <div className="wcs-features-grid" style={{
         maxWidth: 1280, margin: "0 auto",
         display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16,
@@ -37,15 +49,17 @@ export default function FeaturesBar() {
           .wcs-features-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
         }
       `}</style>
-        {features.map((f) => (
+        {features.map((f, i) => (
           <div
             key={f.title}
+            className="fade-up"
             style={{
               borderRadius: 6,
               overflow: "hidden",
               border: "1px solid rgba(200,146,14,0.15)",
               display: "flex",
               flexDirection: "column",
+              transitionDelay: `${i * 0.1}s`,
             }}
           >
             {/* Image */}
