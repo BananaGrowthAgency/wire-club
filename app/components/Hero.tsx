@@ -1,8 +1,55 @@
 "use client";
+import { useEffect, useRef } from "react";
 
 const GOLD = "#E8B822";
 
+const stats = [
+  { n: "12",    l: "Delegaciones activas",  raw: 12,   prefix: "",  decimals: 0 },
+  { n: "+200",  l: "Eventos realizados",    raw: 200,  prefix: "+", decimals: 0 },
+  { n: "+2.200", l: "Empleados directos",   raw: 2200, prefix: "+", decimals: 0 },
+];
+
+function formatNum(val: number, prefix: string): string {
+  const rounded = Math.round(val);
+  const formatted = rounded >= 1000
+    ? rounded.toLocaleString("es-ES").replace(",", ".")
+    : String(rounded);
+  return prefix + formatted;
+}
+
 export default function Hero() {
+  const numRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const duration = 1800;
+    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const animate = (el: HTMLDivElement, stat: typeof stats[0]) => {
+      const start = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min((now - start) / duration, 1);
+        el.textContent = formatNum(stat.raw * easeOut(t), stat.prefix);
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = stat.n;
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const idx = numRefs.current.indexOf(entry.target as HTMLDivElement);
+        if (idx !== -1) {
+          setTimeout(() => animate(entry.target as HTMLDivElement, stats[idx]), idx * 120);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    numRefs.current.forEach(el => { if (el) obs.observe(el); });
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <section
       id="inicio"
@@ -116,7 +163,7 @@ export default function Hero() {
           animation: "hfu 0.65s ease 0.54s both",
         }}>
           <a href="#contacto" className="btn-gold-fill" style={{ fontSize: 12, padding: "12px 26px", WebkitTextStroke: "0.4px #000" }}>
-            Quiero ser parte de WCS
+            Quiero ser parte
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ filter: "drop-shadow(0 0 0.4px #000) drop-shadow(0 0 0.4px #000)" }}>
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
@@ -141,16 +188,12 @@ export default function Hero() {
           maxWidth: 860, margin: "0 auto", padding: "0 40px",
           display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
         }}>
-          {[
-            { n: "12",       l: "Delegaciones activas" },
-            { n: "2022",     l: "Año de fundación"        },
-            { n: "Nacional", l: "Red de contactos"       },
-          ].map((s, i) => (
+          {stats.map((s, i) => (
             <div key={s.l} className="wcs-hero-stat-item" style={{
               textAlign: "center", padding: "20px 0",
               borderRight: i < 2 ? "1px solid rgba(200,146,14,0.1)" : "none",
             }}>
-              <div className="font-display wcs-hero-stat-num" style={{
+              <div ref={el => { numRefs.current[i] = el; }} className="font-display wcs-hero-stat-num" style={{
                 fontSize: 32, fontWeight: 700, lineHeight: 1,
                 background: "linear-gradient(180deg, #FFF3A3 0%, #E8B822 55%, #C8920E 100%)",
                 WebkitBackgroundClip: "text",
